@@ -2,3 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+*.html
+*.utf8.md
+*.knit.md
+.DS_Store
+Thumbs.db
