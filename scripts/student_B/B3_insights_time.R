@@ -1,5 +1,3 @@
-# ✅ Финальный код для B3_insights_time.R
-
 # B3_insights_time.R
 # Выводы по временному анализу
 
@@ -75,4 +73,3 @@ writeLines(insights, "outputs/insights_B.txt")
 
 print("Готово")
 cat(insights)
-
