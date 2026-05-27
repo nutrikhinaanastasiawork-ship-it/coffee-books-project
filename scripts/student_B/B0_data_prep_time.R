@@ -1,20 +1,25 @@
-# B0_data_prep_time.R
-# Подготовка временных признаков
-
+# B0_data_prep_time.R - ПРОСТАЯ ВЕРСИЯ
 library(tidyverse)
-library(lubridate)
 
 # Загрузка данных
 sales <- read.csv("data/sales.csv")
 sales$date <- as.Date(sales$date)
 
-# Создание временных признаков
+# Создание временных признаков (без русских букв!)
 sales_time <- sales %>%
   mutate(
-    weekday_name = wday(date, label = TRUE, locale = "ru_RU"),
-    weekday_num = wday(date),
-    day_type = ifelse(weekday_name %in% c("сб", "вс"), "weekend", "weekday"),
-    month = month(date, label = TRUE, locale = "ru_RU"),
+    weekday_num = wday(date),           # номер дня недели (1-7)
+    weekday_name = case_when(           # название на русском вручную
+      weekday_num == 1 ~ "вс",
+      weekday_num == 2 ~ "пн",
+      weekday_num == 3 ~ "вт",
+      weekday_num == 4 ~ "ср",
+      weekday_num == 5 ~ "чт",
+      weekday_num == 6 ~ "пт",
+      weekday_num == 7 ~ "сб"
+    ),
+    day_type = ifelse(weekday_num %in% c(1, 7), "weekend", "weekday"),
+    month_num = month(date),
     year = year(date),
     week = week(date)
   )
@@ -23,8 +28,6 @@ sales_time <- sales %>%
 write.csv(sales_time, "data/sales_time.csv", row.names = FALSE)
 
 # Проверка
-print("✅ data/sales_time.csv создан!")
-print(paste("Строк:", nrow(sales_time)))
-print(paste("Столбцов:", ncol(sales_time)))
-print("Первые строки:")
-head(sales_time)
+print("✅ ГОТОВО! Файл data/sales_time.csv создан")
+print(paste("Количество строк:", nrow(sales_time)))
+head(sales_time, 3)
