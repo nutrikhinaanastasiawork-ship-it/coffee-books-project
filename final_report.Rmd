@@ -51,3 +51,22 @@ kable(metrics_A$top_products,
       caption = "Топ-5 товаров по выручке",
       col.names = c("Товар", "Категория", "Выручка (руб.)"))
 ```
+## 3. Временной анализ (Студент Б)
+
+### 3.1 Выручка по дням недели
+![](outputs/plots_B/revenue_by_weekday.png)
+
+### 3.2 Средний чек по дням недели
+![](outputs/plots_B/avg_check_by_weekday.png)
+
+### 3.3 Сравнение будней и выходных
+![](outputs/plots_B/weekend_vs_weekday.png)
+
+### 3.4 Динамика продаж
+![](outputs/plots_B/daily_revenue_trend.png)
+
+### 3.5 Выводы по временному анализу
+
+```{r, echo=FALSE}
+cat(readLines("outputs/insights_B.txt"), sep = "\n")
+```
