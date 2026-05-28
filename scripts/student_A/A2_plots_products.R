@@ -63,3 +63,4 @@ cat("   - revenue_by_category.png\n")
 cat("   - top_products.png\n")
 cat("   - abc_analysis.png\n")
 cat("   - prices.png\n")
+
