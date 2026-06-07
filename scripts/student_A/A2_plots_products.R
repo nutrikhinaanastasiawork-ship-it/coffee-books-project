@@ -117,3 +117,11 @@ p4 <- ggplot(price_data,
 ggsave("outputs/plots_A/prices.png", p4, width = 10, height = 7, dpi = 150)
 
 cat("✅ 4 графика сохранены в outputs/plots_A/\n")
+<<<<<<< HEAD
+=======
+cat("   - revenue_by_category.png\n")
+cat("   - top_products.png\n")
+cat("   - abc_analysis.png\n")
+cat("   - prices.png\n")
+
+>>>>>>> f868217cb177e65f5c79bb233afa6021e4829b77

@@ -106,8 +106,9 @@ if(file.exists("outputs/insights_A.txt")) {
 
 ---
 
-# 3. Временной анализ
 
+# 3. Временной анализ
+=====
 ## 3.1 Выручка по дням недели
 
 ```{r weekday-revenue}
