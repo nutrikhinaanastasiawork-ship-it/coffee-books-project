@@ -17,17 +17,24 @@ my_colors <- c("#D32F2F", "#F57C00", "#FFC107", "#FFEB3B")
 if(!dir.exists("outputs/plots_A")) dir.create("outputs/plots_A", recursive = TRUE)
 
 # ============================================
-# График 1: Выручка по категориям
+# ГРАФИК 1: Выручка по категориям
 # ============================================
-p1 <- ggplot(metrics_A$revenue_by_category, 
+revenue_by_category_ru <- metrics_A$revenue_by_category %>%
+  mutate(category = case_when(
+    category == "Coffee" ~ "Кофе",
+    category == "Pastry" ~ "Выпечка",
+    category == "Books" ~ "Книги"
+  ))
+
+p1 <- ggplot(revenue_by_category_ru, 
              aes(x = reorder(category, -revenue), y = revenue, fill = category)) +
   geom_col() +
   geom_text(aes(label = paste0(round(share, 1), "%")), 
             vjust = -0.5, size = 5, fontface = "bold") +
-  scale_fill_manual(values = my_colors) +
+  scale_fill_manual(values = my_colors, name = "Категория") +
   scale_y_continuous(
     labels = label_number(big.mark = " ", decimal.mark = ","),
-    limits = c(0, max(metrics_A$revenue_by_category$revenue) * 1.2),
+    limits = c(0, max(revenue_by_category_ru$revenue) * 1.2),
     expand = c(0, 0)
   ) +
   labs(title = "Выручка по категориям товаров",
@@ -40,15 +47,22 @@ p1 <- ggplot(metrics_A$revenue_by_category,
 ggsave("outputs/plots_A/revenue_by_category.png", p1, width = 8, height = 6, dpi = 150)
 
 # ============================================
-# График 2: Топ-5 товаров по выручке
+# ГРАФИК 2: Топ-5 товаров по выручке
 # ============================================
-p2 <- ggplot(metrics_A$top_products, 
+top_products_ru <- metrics_A$top_products %>%
+  mutate(category = case_when(
+    category == "Coffee" ~ "Кофе",
+    category == "Pastry" ~ "Выпечка",
+    category == "Books" ~ "Книги"
+  ))
+
+p2 <- ggplot(top_products_ru, 
              aes(x = reorder(product, revenue), y = revenue, fill = category)) +
   geom_col() +
   geom_text(aes(label = label_number(big.mark = " ", decimal.mark = ",")(revenue)), 
             hjust = -0.1, size = 4) +
   coord_flip() +
-  scale_fill_manual(values = my_colors) +
+  scale_fill_manual(values = my_colors, name = "Категория") +
   scale_y_continuous(
     labels = label_number(big.mark = " ", decimal.mark = ","),
     expand = expansion(mult = c(0, 0.15))
@@ -63,7 +77,7 @@ p2 <- ggplot(metrics_A$top_products,
 ggsave("outputs/plots_A/top_products.png", p2, width = 9, height = 5, dpi = 150)
 
 # ============================================
-# График 3: ABC-анализ
+# ГРАФИК 3: ABC-анализ
 # ============================================
 p3 <- ggplot(metrics_A$abc, 
              aes(x = reorder(product, -revenue), y = revenue, fill = class)) +
@@ -89,11 +103,16 @@ p3 <- ggplot(metrics_A$abc,
 ggsave("outputs/plots_A/abc_analysis.png", p3, width = 11, height = 6, dpi = 150)
 
 # ============================================
-# График 4: Цены на товары
+# ГРАФИК 4: Цены на товары
 # ============================================
 price_data <- sales %>%
   group_by(product, category) %>%
-  summarise(price = first(price_per_unit), .groups = "drop")
+  summarise(price = first(price_per_unit), .groups = "drop") %>%
+  mutate(category = case_when(
+    category == "Coffee" ~ "Кофе",
+    category == "Pastry" ~ "Выпечка",
+    category == "Books" ~ "Книги"
+  ))
 
 p4 <- ggplot(price_data, 
              aes(x = reorder(product, price), y = price, fill = category)) +
