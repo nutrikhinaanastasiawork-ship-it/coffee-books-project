@@ -45,7 +45,7 @@ for (i in 1:n_transactions) {
   # Выбор товаров с учётом дня недели
   if (weekday %in% c("Sat", "Sun")) {
     # в выходные чаще покупают книги и кофе
-    probs <- ifelse(products$category %in% c("Кофе", "Книги"), 2, 1)
+    probs <- ifelse(products$category %in% c("Кофе", "Книги"), 3, 1)
   } else {
     # в будни чаще выпечку
     probs <- ifelse(products$category == "Выпечка", 2, 1)

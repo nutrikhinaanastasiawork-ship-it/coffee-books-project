@@ -1,7 +1,6 @@
 ---
 title: "Анализ продаж магазина 'Кофе и Книги'"
-author: "Студент А (товарный анализ) и Студент Б (временной анализ)"
-date: "`r Sys.Date()`"
+author: "Товарный и временной анализ"
 output: 
   html_document:
     toc: true
@@ -42,14 +41,19 @@ total_items <- sum(sales$quantity)
 
 ---
 
-# 2. Товарный анализ (Студент А)
+# 2. Товарный анализ
 
 ## 2.1 Выручка по категориям
 
 ```{r category-revenue}
-kable(metrics_A$revenue_by_category,
-      caption = "Выручка по категориям товаров",
-      col.names = c("Категория", "Выручка (руб.)", "Доля (%)"))
+metrics_A$revenue_by_category %>%
+  mutate(
+    `Выручка (руб.)` = scales::comma(revenue),
+    `Доля (%)` = scales::percent(share / 100, accuracy = 0.1)
+  ) %>%
+  select(Категория = category, `Выручка (руб.)`, `Доля (%)`) %>%
+  kable(caption = "Выручка по категориям товаров")
+      col.names = c("Категория", "Выручка (руб.)", "Доля (%)")
 ```
 
 ![](outputs/plots_A/revenue_by_category.png)
@@ -99,6 +103,7 @@ abc_table <- metrics_A$abc %>%
     Выручка = sum(revenue),
     Доля = round(sum(revenue) / total_revenue * 100, 1)
   )
+names(abc_table)[names(abc_table) == "class"] <- "Класс ABC"
 kable(abc_table, caption = "ABC-анализ товаров")
 ```
 
@@ -122,7 +127,9 @@ if(file.exists("outputs/insights_A.txt")) {
 
 ---
 
-# 3. Временной анализ (Студент Б)
+
+# 3. Временной анализ
+=======
 
 ## 3.1 Выручка по дням недели
 
