@@ -6,8 +6,6 @@ output:
     toc: true
     toc_float: true
     theme: flatly
-  pdf_document:
-    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -96,6 +94,7 @@ kable(abc_table, caption = "ABC-анализ товаров")
 ![](outputs/plots_A/abc_analysis.png)
 
 **Вывод:** Категория A приносит 70% выручки, категория B — 20%, категория C — 10%.
+
 ## 2.4 Цены на товары
 
 ![](outputs/plots_A/prices.png)
