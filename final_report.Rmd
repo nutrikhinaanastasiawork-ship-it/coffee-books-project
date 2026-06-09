@@ -115,15 +115,7 @@ if(file.exists("outputs/insights_A.txt")) {
 
 ## 3.1 Выручка по дням недели
 
-```{r weekday-revenue}
-metrics_B$sales_by_weekday %>%
-  mutate(
-    `Выручка (руб.)` = scales::comma(revenue),
-    `Средний чек (руб.)` = scales::comma(avg_check)
-  ) %>%
-  select(День = weekday, `Выручка (руб.)`, Транзакций = transactions, `Средний чек (руб.)`) %>%
-  kable(caption = "Выручка по дням недели")
-```
+
 
 ![](outputs/plots_B/weekday_revenue.png)
 
