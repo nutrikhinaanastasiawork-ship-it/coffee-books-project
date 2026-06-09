@@ -1,11 +1,13 @@
 ---
 title: "Анализ продаж магазина 'Кофе и Книги'"
 author: "Товарный и временной анализ"
-output: 
+output:
   html_document:
     toc: true
     toc_float: true
     theme: flatly
+  pdf_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -21,6 +23,10 @@ library(scales)
 metrics_A <- readRDS("outputs/metrics_A.rds")
 metrics_B <- readRDS("outputs/metrics_B.rds")
 sales <- read.csv("data/sales.csv")
+sales$date <- as.Date(sales$date)
+
+# Общая выручка для ABC
+total_revenue <- sum(metrics_A$revenue_by_category$revenue)
 ```
 
 # 1. Общая статистика
@@ -53,7 +59,6 @@ metrics_A$revenue_by_category %>%
   ) %>%
   select(Категория = category, `Выручка (руб.)`, `Доля (%)`) %>%
   kable(caption = "Выручка по категориям товаров")
-      col.names = c("Категория", "Выручка (руб.)", "Доля (%)")
 ```
 
 ![](outputs/plots_A/revenue_by_category.png)
@@ -63,9 +68,10 @@ metrics_A$revenue_by_category %>%
 ## 2.2 Топ-5 товаров по выручке
 
 ```{r top-products}
-kable(metrics_A$top_products,
-      caption = "Топ-5 товаров по выручке",
-      col.names = c("Товар", "Категория", "Выручка (руб.)"))
+metrics_A$top_products %>%
+  mutate(`Выручка (руб.)` = scales::comma(revenue)) %>%
+  select(Товар = product, Категория = category, `Выручка (руб.)`) %>%
+  kable(caption = "Топ-5 товаров по выручке")
 ```
 
 ![](outputs/plots_A/top_products.png)
@@ -79,17 +85,17 @@ abc_table <- metrics_A$abc %>%
   group_by(class) %>%
   summarise(
     Товаров = n(),
-    Выручка = sum(revenue),
-    Доля = round(sum(revenue) / total_revenue * 100, 1)
-  )
-names(abc_table)[names(abc_table) == "class"] <- "Класс ABC"
+    `Выручка (руб.)` = scales::comma(sum(revenue)),
+    `Доля (%)` = scales::percent(sum(revenue) / total_revenue, accuracy = 0.1)
+  ) %>%
+  rename(`Класс ABC` = class)
+
 kable(abc_table, caption = "ABC-анализ товаров")
 ```
 
 ![](outputs/plots_A/abc_analysis.png)
 
-**Вывод:** `r abc_table$Товаров[abc_table$class == "A"]` товаров дают 70% выручки, `r abc_table$Товаров[abc_table$class == "C"]` товаров — всего 10%.
-
+**Вывод:** Категория A приносит 70% выручки, категория B — 20%, категория C — 10%.
 ## 2.4 Цены на товары
 
 ![](outputs/plots_A/prices.png)
@@ -106,14 +112,18 @@ if(file.exists("outputs/insights_A.txt")) {
 
 ---
 
-
 # 3. Временной анализ
-=====
+
 ## 3.1 Выручка по дням недели
 
 ```{r weekday-revenue}
-kable(metrics_B$sales_by_weekday,
-      caption = "Выручка по дням недели")
+metrics_B$sales_by_weekday %>%
+  mutate(
+    `Выручка (руб.)` = scales::comma(revenue),
+    `Средний чек (руб.)` = scales::comma(avg_check)
+  ) %>%
+  select(День = weekday, `Выручка (руб.)`, Транзакций = transactions, `Средний чек (руб.)`) %>%
+  kable(caption = "Выручка по дням недели")
 ```
 
 ![](outputs/plots_B/weekday_revenue.png)
@@ -127,8 +137,14 @@ kable(metrics_B$sales_by_weekday,
 ## 3.3 Будни vs выходные
 
 ```{r weekend-vs-weekday}
-kable(metrics_B$weekday_vs_weekend,
-      caption = "Будни против выходных")
+metrics_B$weekday_vs_weekend %>%
+  mutate(
+    `Выручка (руб.)` = scales::comma(revenue),
+    `Средний чек (руб.)` = scales::comma(avg_check),
+    Тип = ifelse(day_type == "weekday", "Будни", "Выходные")
+  ) %>%
+  select(Тип, `Выручка (руб.)`, Транзакций = transactions, `Средний чек (руб.)`) %>%
+  kable(caption = "Сравнение будней и выходных")
 ```
 
 ![](outputs/plots_B/weekend_vs_weekday.png)

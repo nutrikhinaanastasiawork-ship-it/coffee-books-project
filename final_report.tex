@@ -1,0 +1,378 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Анализ продаж магазина `Кофе и Книги'},
+  pdfauthor={Товарный и временной анализ},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Анализ продаж магазина `Кофе и Книги'}
+\author{Товарный и временной анализ}
+\date{}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{1. Общая
+статистика}\label{ux43eux431ux449ux430ux44f-ux441ux442ux430ux442ux438ux441ux442ux438ux43aux430}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Показатель & Значение \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Общая выручка} & 2,322,830 руб. \\
+\textbf{Всего транзакций} & 2,000 \\
+\textbf{Средний чек} & 1161.41 руб. \\
+\textbf{Всего продано товаров} & 10,048 шт. \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{2. Товарный
+анализ}\label{ux442ux43eux432ux430ux440ux43dux44bux439-ux430ux43dux430ux43bux438ux437}
+
+\subsection{2.1 Выручка по
+категориям}\label{ux432ux44bux440ux443ux447ux43aux430-ux43fux43e-ux43aux430ux442ux435ux433ux43eux440ux438ux44fux43c}
+
+\begin{longtable}[]{@{}lll@{}}
+\caption{Выручка по категориям товаров}\tabularnewline
+\toprule\noalign{}
+Категория & Выручка (руб.) & Доля (\%) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Категория & Выручка (руб.) & Доля (\%) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Книги & 950,450 & 40.9\% \\
+Кофе & 688,810 & 29.7\% \\
+Выпечка & 683,570 & 29.4\% \\
+\end{longtable}
+
+\pandocbounded{\includegraphics[keepaspectratio]{final_report_files/outputs/plots_A/revenue_by_category.png}}
+
+\textbf{Вывод:} Основную выручку приносит категория \textbf{Книги} ---
+40.9\% от общей выручки.
+
+\subsection{2.2 Топ-5 товаров по
+выручке}\label{ux442ux43eux43f-5-ux442ux43eux432ux430ux440ux43eux432-ux43fux43e-ux432ux44bux440ux443ux447ux43aux435}
+
+\begin{longtable}[]{@{}lll@{}}
+\caption{Топ-5 товаров по выручке}\tabularnewline
+\toprule\noalign{}
+Товар & Категория & Выручка (руб.) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Товар & Категория & Выручка (руб.) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Мастер и Маргарита & Книги & 366,600 \\
+Преступление и наказание & Книги & 299,000 \\
+Война и мир & Книги & 284,850 \\
+Сырник & Выпечка & 243,200 \\
+Маффин & Выпечка & 188,850 \\
+\end{longtable}
+
+\pandocbounded{\includegraphics[keepaspectratio]{final_report_files/outputs/plots_A/top_products.png}}
+
+\textbf{Вывод:} Топ-3 товара: Мастер и Маргарита, Преступление и
+наказание, Война и мир.
+
+\subsection{2.3 ABC-анализ}\label{abc-ux430ux43dux430ux43bux438ux437}
+
+\begin{longtable}[]{@{}lrll@{}}
+\caption{ABC-анализ товаров}\tabularnewline
+\toprule\noalign{}
+Класс ABC & Товаров & Выручка (руб.) & Доля (\%) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Класс ABC & Товаров & Выручка (руб.) & Доля (\%) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+A & 6 & 1,550,780 & 66.8\% \\
+B & 3 & 463,170 & 19.9\% \\
+C & 3 & 308,880 & 13.3\% \\
+\end{longtable}
+
+\pandocbounded{\includegraphics[keepaspectratio]{final_report_files/outputs/plots_A/abc_analysis.png}}
+
+\textbf{Вывод:} Категория A приносит 70\% выручки, категория B --- 20\%,
+категория C --- 10\%. \#\# 2.4 Цены на товары
+
+\pandocbounded{\includegraphics[keepaspectratio]{final_report_files/outputs/plots_A/prices.png}}
+
+\subsection{2.5 Выводы студента
+А}\label{ux432ux44bux432ux43eux434ux44b-ux441ux442ux443ux434ux435ux43dux442ux430-ux430}
+
+\begin{verbatim}
+
+## 📊 Выводы по товарному анализу (Студент А)
+
+### 1. Главный драйвер выручки
+Категория **'Книги'** приносит 40.9% всей выручки.
+- **Рекомендация:** расширить ассортимент в этой категории, выделить больше места на витрине.
+
+### 2. Аутсайдеры (категория C)
+3 товаров (категория C) приносят всего 10% выручки.
+- **Рекомендация:** провести распродажу, сделать скидку 20-30% или убрать из ассортимента.
+
+### 3. Ценовая политика
+- Самый дорогой товар: **Мастер и Маргарита** (600 руб.)
+- Самый дешёвый товар: **Печенье** (80 руб.)
+- **Рекомендация:** добавить комбо-предложения, например 'Кофе + Выпечка = скидка 15%'.
+
+### 4. Топ-5 товаров
+Мастер и Маргарита, Преступление и наказание, Война и мир, Сырник, Маффин
+- **Рекомендация:** всегда держать эти товары в наличии, сделать отдельную витрину.
+
+### 5. ABC-анализ
+- Товары категории A: 6 штук (70% выручки)
+- Товары категории B: 3 штук (20% выручки)
+- Товары категории C: 3 штук (10% выручки)
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{3. Временной
+анализ}\label{ux432ux440ux435ux43cux435ux43dux43dux43eux439-ux430ux43dux430ux43bux438ux437}
+
+\subsection{3.1 Выручка по дням
+недели}\label{ux432ux44bux440ux443ux447ux43aux430-ux43fux43e-ux434ux43dux44fux43c-ux43dux435ux434ux435ux43bux438}
+
+\begin{longtable}[]{@{}llrl@{}}
+\caption{Выручка по дням недели}\tabularnewline
+\toprule\noalign{}
+День & Выручка (руб.) & Транзакций & Средний чек (руб.) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+День & Выручка (руб.) & Транзакций & Средний чек (руб.) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+вс & 304,660 & 256 & 1,190.1 \\
+пн & 298,520 & 254 & 1,175.3 \\
+вт & 346,850 & 303 & 1,144.7 \\
+ср & 350,370 & 307 & 1,141.3 \\
+чт & 334,810 & 303 & 1,105.0 \\
+пт & 337,880 & 280 & 1,206.7 \\
+сб & 349,740 & 297 & 1,177.6 \\
+\end{longtable}
+
+{}
+
+\textbf{Вывод:} Пик продаж --- \textbf{ср}.
+
+\subsection{3.2 Средний чек по дням
+недели}\label{ux441ux440ux435ux434ux43dux438ux439-ux447ux435ux43a-ux43fux43e-ux434ux43dux44fux43c-ux43dux435ux434ux435ux43bux438}
+
+\pandocbounded{\includegraphics[keepaspectratio]{final_report_files/outputs/plots_B/avg_check_by_weekday.png}}
+
+\subsection{3.3 Будни vs
+выходные}\label{ux431ux443ux434ux43dux438-vs-ux432ux44bux445ux43eux434ux43dux44bux435}
+
+\begin{longtable}[]{@{}llrl@{}}
+\caption{Сравнение будней и выходных}\tabularnewline
+\toprule\noalign{}
+Тип & Выручка (руб.) & Транзакций & Средний чек (руб.) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Тип & Выручка (руб.) & Транзакций & Средний чек (руб.) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Будни & 1,668,430 & 1447 & 1,153 \\
+Выходные & 654,400 & 553 & 1,183 \\
+\end{longtable}
+
+\pandocbounded{\includegraphics[keepaspectratio]{final_report_files/outputs/plots_B/weekend_vs_weekday.png}}
+
+\subsection{3.4 Динамика
+продаж}\label{ux434ux438ux43dux430ux43cux438ux43aux430-ux43fux440ux43eux434ux430ux436}
+
+\pandocbounded{\includegraphics[keepaspectratio]{final_report_files/outputs/plots_B/daily_revenue_trend.png}}
+
+\subsection{3.5 Выводы студента
+Б}\label{ux432ux44bux432ux43eux434ux44b-ux441ux442ux443ux434ux435ux43dux442ux430-ux431}
+
+\begin{verbatim}
+Выводы по временному анализу (Студент Б)
+
+1. Самый прибыльный день
+Среда показала максимальную выручку 350 370 рублей.
+Понедельник - самый слабый день с выручкой 298 520 рублей.
+Разница составляет 51 850 рублей (17.4%).
+Рекомендация: проводить акции в понедельник для выравнивания продаж,
+обеспечивать максимальный запас товаров (как книг, так и кофе) к среде.
+
+2. Средний чек по дням недели
+Самый высокий средний чек в пятницу - 1207 рублей.
+Самый низкий в четверг - 1105 рублей.
+Разница составляет 102 рублей (9.2%).
+Рекомендация: в четверг запустить акцию "Книга + кофе = скидка"
+или предлагать десерт/бестселлер к основному заказу для повышения чека.
+Пятница показывает отличные результаты, достаточно поддерживать текущий уровень.
+
+3. Сравнение будней и выходных
+Средний чек в будни - 1153 рублей, в выходные - 1183 рублей.
+Разница составляет всего 30 рублей (2.6%), что статистически незначительно.
+Рекомендация: не требуется отдельной стратегии для выходных.
+В будни можно тестировать акции на книги (когда посетителей меньше),
+в выходные сохранять стандартное меню и ассортимент.
+
+4. Итоговые рекомендации
+Усилить понедельник акциями (самый слабый день по выручке).
+Повышать средний чек в четверг через комбо-предложения "Книга + кофе".
+Сохранить базовую стратегию для выходных - отличие от будней минимально.
+Обеспечить достаточный запас товаров к среде - дню максимальной выручки.
+В пятницу (максимальный чек) можно предлагать новинки книг и сезонные напитки.
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{4. Общие
+рекомендации}\label{ux43eux431ux449ux438ux435-ux440ux435ux43aux43eux43cux435ux43dux434ux430ux446ux438ux438}
+
+\subsubsection{Ассортиментная
+стратегия}\label{ux430ux441ux441ux43eux440ux442ux438ux43cux435ux43dux442ux43dux430ux44f-ux441ux442ux440ux430ux442ux435ux433ux438ux44f}
+
+\begin{itemize}
+\tightlist
+\item
+  Укрепить категорию \textbf{Книги}
+\item
+  Провести распродажу товаров категории C
+\end{itemize}
+
+\subsubsection{Временная
+стратегия}\label{ux432ux440ux435ux43cux435ux43dux43dux430ux44f-ux441ux442ux440ux430ux442ux435ux433ux438ux44f}
+
+\begin{itemize}
+\tightlist
+\item
+  Увеличить запасы к пятнице и субботе
+\item
+  Запустить акцию ``Счастливый вторник''
+\end{itemize}
+
+\subsubsection{Маркетинговые
+активности}\label{ux43cux430ux440ux43aux435ux442ux438ux43dux433ux43eux432ux44bux435-ux430ux43aux442ux438ux432ux43dux43eux441ux442ux438}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  По вторникам --- скидки
+\item
+  В выходные --- премиум-меню
+\item
+  Для топ-товаров --- отдельная витрина
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{5.
+Заключение}\label{ux437ux430ux43aux43bux44eux447ux435ux43dux438ux435}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Студент & Задачи & Графиков & Выводов \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{А} & Товарный анализ & 4 & 4 \\
+\textbf{Б} & Временной анализ & 4 & 4 \\
+\end{longtable}
+
+\textbf{Дата защиты:} 2026-06-09
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\end{document}
