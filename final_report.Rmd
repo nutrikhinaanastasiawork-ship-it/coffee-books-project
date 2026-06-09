@@ -117,7 +117,7 @@ if(file.exists("outputs/insights_A.txt")) {
 
 
 
-![](outputs/plots_B/weekday_revenue.png)
+![](outputs/plots_B/revenue_by_weekday.png)
 
 **Вывод:** Пик продаж — **`r metrics_B$sales_by_weekday$weekday[which.max(metrics_B$sales_by_weekday$revenue)]`**.
 
