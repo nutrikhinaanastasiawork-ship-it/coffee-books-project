@@ -136,7 +136,7 @@ p4 <- ggplot(daily_sales, aes(x = date, y = revenue)) +
 ggsave("outputs/plots_B/daily_revenue_trend.png", p4, width = 12, height = 6, dpi = 150)
 
 cat("✅ 4 графика сохранены в outputs/plots_B/\n")
-cat("   - revenue_by_weekday.png\n")
+cat("   - weekday_revenue.png\n")
 cat("   - avg_check_by_weekday.png\n")
 cat("   - weekend_vs_weekday.png\n")
 cat("   - daily_revenue_trend.png\n")
